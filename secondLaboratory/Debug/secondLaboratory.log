@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\leushkin.IMC\source\repos\secondLaboratory\Source.cpp(27,12): warning C4244:  аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\leushkin.IMC\source\repos\secondLaboratory\Source.cpp(10,6): warning C4101:  temp: неиспользованная локальная переменная
+  secondLaboratory.vcxproj -> C:\Users\leushkin.IMC\source\repos\secondLaboratory\Debug\secondLaboratory.exe
