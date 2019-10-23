@@ -29,14 +29,14 @@ int Search_Binary(vector<int> digits_array, int left, int right, int key, bool h
 		return -1;
 }
 
-void print_array(vector<int> digits_array, unsigned short n)
+void print_array(vector<int>&digits_array)
 {
 	for (int i = 0; i < digits_array.size(); i++)
 	{
 		cout << digits_array[i] << " ";
 	}
 }
-int count_if(vector<int>digits_array , int value, int param)
+int count_if(vector<int>&digits_array , int value, int param)
 {
 	int count = 0;
 	for (int i = 0; i < digits_array.size(); i++) // прогоняем весь массив и подсчитываем количество элементов
@@ -87,7 +87,7 @@ int checkdigit()
 		}
 	}
 }
-int random_array(vector<int>digits_array)
+void random_array(vector<int>&digits_array)
 {
 	// выводим получившийся массив
 	cout << endl << "Получившийся массив:" << endl;
@@ -101,9 +101,8 @@ int random_array(vector<int>digits_array)
 	cout << endl << "Достаточно!" << endl << endl;
 
 	system("pause"); // ожидаем ввода пользователя
-	return 0;
 }
-int insertion_sort(vector<int>digits_array)
+void insertion_sort(vector<int>&digits_array)
 {
 	// сортируем массив вставками --  insertion sort
 	cout << "Отсортированный массив: " << endl;
@@ -120,11 +119,11 @@ int insertion_sort(vector<int>digits_array)
 		}
 		digits_array[j + 1] = min_value; // присваеваем следующему элементу минимальное значения массива
 	}
-	return 0;
+
 }
 int main()
 {
-	setlocale(0, "");
+	setlocale(0, ""); // локализация
 	unsigned short n; // переменна, которая хранит размерность массива
 	short value_a; // переменная, в которую пользователь вводит значение для проверки
 	int count; // переменная, которая хранит количество чисел удовлетворяющих условию
@@ -147,7 +146,7 @@ int main()
 	set <int> numbers_alt_array; // неповторяющийся массив необходим для создания массива неповторяющихся индексов элеметов
 	vector<int> numbers_array; // дополнительный массив индексов для выполнения 2-го задания
 
-	value_a = random_array(digits_array);
+	random_array(digits_array);
 	
 	auto start = sc.now();     // устанавливаем начало отсчета времени события
 	insertion_sort(digits_array);
@@ -156,7 +155,7 @@ int main()
 	auto time_span = static_cast<chrono::duration<double>>(end - start);   // высчитываем время, затраченное на событие
 
 	// выводим отсортированный массив
-	print_array(digits_array, n);
+	print_array(digits_array);
 	cout << endl << endl;
 	cout << "Время, затраченное на сортировку: " << time_span.count() << " секунд" << endl << endl;
 	// указываем минимальное, среднее и максимальное значения массива
@@ -169,14 +168,14 @@ int main()
 	////////////////Вывод количества больших и меньших значений в соответствии с вводимым числом
 	// вводим значение 
 	cout << "Введите значение А (Выведет количество элементов массива, которые меньше значения А (арабскими цифрами - Пример: 10, 42, 54, 10000)): ";
-	cin >> value_a; // сделать защиту от дурака
+	value_a = checkdigit();
 	count = count_if(digits_array, value_a, param); // param = 0 - проверяем, сколько значений меньше
 	// выводим полученное количество
 	cout << "Количество элементов < " << value_a << ": " << count << endl;
 	system("pause"); // ожидаем ввода пользователя
 	// ввводим значение для подсчета количества элементов, превышающих заданное значение
 	cout << "Введите значение А (Выведет количество элементов массива, которые больше значения А (арабскими цифрами - Пример: 10, 42, 54, 10000)): ";
-	cin >> value_a; // объединить циклы в один
+	value_a = checkdigit();
 	param = 1; // проверяем, сколько значений больше
 	count = count_if(digits_array, value_a, param); // param = 1 - проверяем, сколько значений больше
 	// выводим полученное количество
@@ -259,14 +258,14 @@ int main()
 		digits_array[numbers_array[i]] = temp_2;
 	}
 	
-	print_array(digits_array, n);
+	print_array(digits_array);
 	system("pause"); // ожидаем ввода пользователя
 	cout << endl;
 	////////////поиск, добавление, удаление ////////////////
 	//////поиск
 	har = 1;
 	cout << "Введите число, которое найдем в массиве, добавим в массив, а затем удалим (арабскими цифрами - Пример: 10, 42, 54, 10000): ";
-	cin >> key;
+	key = checkdigit();
 	start = sc.now(); // устанавливаем начало отсчета времени события
 	index_1 = Search_Binary(digits_array, 0, n, key, har);
 	if (index_1 >= 0)
@@ -282,7 +281,7 @@ int main()
 	start = sc.now(); // устанавливаем начало отсчета времени события
 	digits_array.push_back(key);
 	end = sc.now();       // end timer (starting & ending is done by measuring the time at the moment the process started & ended respectively)
-	print_array(digits_array, n);
+	print_array(digits_array);
 	time_span = static_cast<chrono::duration<double>>(end - start);   // высчитываем время, затраченное на событие
 	cout << endl << "Время, затраченнное на добавление: " << time_span.count() << " секунд" << endl << endl;
 	//// удаление
@@ -291,7 +290,7 @@ int main()
 	start = sc.now(); // устанавливаем начало отсчета времени события
 	digits_array.pop_back();
 	end = sc.now();       // устанавливаем конец отсчета времени события
-	print_array(digits_array, n);
+	print_array(digits_array);
 	time_span = static_cast<chrono::duration<double>>(end - start);   // высчитываем время, затраченное на событие
 	cout << endl << "Время, затраченное на удаление: " << time_span.count() << " секунд" << endl << endl;
 
